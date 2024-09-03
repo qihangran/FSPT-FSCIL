@@ -1,0 +1,31 @@
+CUDA_VISIBLE_DEVICES=1,2,3 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cifar100.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cifar100/CoOp/vit_l14_ep50_allshots/nctx16_scsFalse_s4/seed1 --session 4 TRAINER.COOP.N_CTX 16 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 8 DATALOADER.TRAIN_X.BATCH_SIZE 32
+
+
+#CUB2200 SESSION 2 
+CUDA_VISIBLE_DEVICES=1,2,3 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_l14_ep50_allshots/nctx16_scsFalse_s2/seed1 --session 2 TRAINER.COOP.N_CTX 16 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 8 DATALOADER.TRAIN_X.BATCH_SIZE 32 MODEL.INIT_WEIGHTS output/cub200/CoOp/vit_l14_ep50_allshots/nctx16_scsFalse_s1/seed1/prompt_learner/model.pth.tar-5  DATALOADER.TEST.BATCH_SIZE 100
+
+#CUB2200 SESSION X
+CUDA_VISIBLE_DEVICES=1,2,3 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_l14_ep50_allshots/nctx16_scsFalse_s9/seed1 --session 9 TRAINER.COOP.N_CTX 16 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 8 DATALOADER.TRAIN_X.BATCH_SIZE 32 MODEL.INIT_WEIGHTS output/cub200/CoOp/vit_l14_ep50_allshots/nctx16_scsFalse_s8/seed1/prompt_learner/model.pth.tar-5  DATALOADER.TEST.BATCH_SIZE 100
+
+
+#CUB2200 SESSION 0 meta
+CUDA_VISIBLE_DEVICES=1,2,3 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_l14_ep50_meta/nctx16_scsFalse_s0/seed1 --session 0 TRAINER.COOP.N_CTX 16 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 8 DATALOADER.TEST.BATCH_SIZE 100
+
+CUDA_VISIBLE_DEVICES=7 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_l14_ep50_meta10_10/nctx16_scsFalse_s0/seed1 --session 0 --meta-train --nways 10 --kshots 10 --meta-outer-batch 100 TRAINER.COOP.N_CTX 16 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 8 DATALOADER.TEST.BATCH_SIZE 100
+
+---增量类训练---
+CUDA_VISIBLE_DEVICES=7 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_b16_ep50_meta3/nctx16_scsFalse_s1/seed1 --session 1 --meta-train --nways 3 --kshots 5 --meta-outer-batch 50 TRAINER.COOP.N_CTX 12 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 0 DATALOADER.TEST.BATCH_SIZE 100 TRAIN.META_STEP 5 MODEL.INIT_WEIGHTS output/cub200/CoOp/vit_l14_ep50_meta20ways/nctx16_scsFalse_s0/seed1/prompt_learner/model.pth.tar-601
+
+CUDA_VISIBLE_DEVICES=7 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_b16_ep50_meta20_5/nctx16_scsFalse_s1/seed1 --session 1 --meta-train --nways 10 --kshots 5 --meta-outer-batch 50 TRAINER.COOP.N_CTX 12 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 0 DATALOADER.TEST.BATCH_SIZE 100 TRAIN.META_STEP 5 MODEL.INIT_WEIGHTS output/cub200/CoOp/vit_l14_ep50_meta20ways/nctx16_scsFalse_s0/seed1/prompt_learner/model.pth.tar-601-83.4 TRAIN.SAVE_STEP 1
+
+
+--基类训练---
+CUDA_VISIBLE_DEVICES=4 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_l14_ep50_meta10_5/nctx16_scsFalse_s0/seed1 --session 0 --meta-train --nways 15 --kshots 5 --meta-outer-batch 75 TRAINER.COOP.N_CTX 12 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 0 DATALOADER.TEST.BATCH_SIZE 100 TRAIN.META_STEP 1500 TRAIN.SAVE_STEP 20
+
+--增量类
+CUDA_VISIBLE_DEVICES=5 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_l14_ep50_meta30_5/nctx16_scsFalse_s1/seed1 --session 1 --meta-train --nways 10 --kshots 5 --meta-outer-batch 50 TRAINER.COOP.N_CTX 12 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION end DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 0 DATALOADER.TEST.BATCH_SIZE 100 TRAIN.META_STEP 5 MODEL.INIT_WEIGHTS output/cub200/CoOp/vit_l14_ep50_meta30_5/nctx16_scsFalse_s0/seed1/prompt_learner/model.pth.tar-971 TRAIN.SAVE_STEP 1
+
+
+middle
+CUDA_VISIBLE_DEVICES=5 python train.py --root ./DATA --seed 1 --trainer CoOp --dataset-config-file configs/datasets/cub200.yaml --config-file configs/trainers/CoOp/vit_l14_ep50.yaml --output-dir output/cub200/CoOp/vit_l14_ep50_meta5_1_noreset/nctx16_scsFalse_s0/seed1 --session 0 --meta-train --nways 5 --kshots 1 --meta-outer-batch 39 TRAINER.COOP.N_CTX 12 TRAINER.COOP.CSC False TRAINER.COOP.CLASS_TOKEN_POSITION middle DATASET.NUM_SHOTS 0 DATALOADER.NUM_WORKERS 0 DATALOADER.TEST.BATCH_SIZE 100 TRAIN.META_STEP 10000 TRAIN.SAVE_STEP 40
+
